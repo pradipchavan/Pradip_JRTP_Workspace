@@ -1,0 +1,151 @@
+
+=================
+Product API
+=================
+
+=> We have to implement below functionalities in Product API
+
+1) GET product_categories for side menu bar display
+
+2) GET products based on category_id
+
+3) GET products based on product_name (search functionality)
+
+4) GET product by product_id (for product master view)
+
+====================
+Development Process
+====================
+
+Step-1 : Load Product Categories and Products records Into DB tables using sql scripts provided below
+
+Step-2 : Create Project with required dependencies
+
+			a) web-starter
+			b) data-jpa-starter
+			c) mysql-driver
+			d) lombok
+			e) devtools
+			f) model-mapper
+			g) swagger
+
+Step-3 : Configure Data Source Properties in "application.properties" file
+
+Step-4 : Create Entities & Repo interfaces
+
+Step-5 : Create DTO classes to map request & response data
+
+Step-6 : Create Mapper classes to map DTO data to Entity and vice versa
+
+Step-7 : Create Service interface & impl classes
+
+Step-8 : Create ApiResponse class to represent standard response structure
+
+Step-9 : Create Rest Controller to handle request and response
+
+Step-10 : Run the API and test it using Postman or swagger
+
+
+-- -----------------------------------------------------
+-- Schema ashokit_ecomm
+-- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `ashokit_ecomm`;
+
+CREATE SCHEMA `ashokit_ecomm`;
+USE `ashokit_ecomm` ;
+
+-- -----------------------------------------------------
+-- Table `ashokit_ecomm`.`product_category`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ashokit_ecomm`.`product_category` (
+  `category_id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `category_name` VARCHAR(255) NULL DEFAULT NULL,
+    `active` VARCHAR(255) NULL DEFAULT NULL,
+  PRIMARY KEY (`category_id`))
+ENGINE=InnoDB
+AUTO_INCREMENT = 1;
+
+-- -----------------------------------------------------
+-- Table `ashokit_ecomm`.`product`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ashokit_ecomm`.`product` (
+  `product_id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(255) DEFAULT NULL,
+  `name` VARCHAR(255) DEFAULT NULL,
+  `description` VARCHAR(255) DEFAULT NULL,
+  `unit_price` DECIMAL(13,2) DEFAULT NULL,
+  `image_url` VARCHAR(255) DEFAULT NULL,
+  `active` BIT DEFAULT 1,
+  `units_stock` INT(11) DEFAULT NULL,
+   `created_at` DATETIME(6) DEFAULT NULL,
+  `last_updated` DATETIME(6) DEFAULT NULL,
+  `category_id` BIGINT(20) NOT NULL,
+  PRIMARY KEY (`product_id`),
+  KEY `fk_category` (`category_id`),
+  CONSTRAINT `fk_category` FOREIGN KEY (`category_id`) REFERENCES `product_category` (`category_id`)
+) 
+ENGINE=InnoDB
+AUTO_INCREMENT = 1;
+
+-- -----------------------------------------------------
+-- insert product categories
+-- -----------------------------------------------------
+
+INSERT INTO product_category(category_name, active) VALUES ('Laptops', 'Y');
+INSERT INTO product_category(category_name, active) VALUES ('Mobiles', 'Y');
+INSERT INTO product_category(category_name, active) VALUES ('Shirts', 'Y');
+INSERT INTO product_category(category_name, active) VALUES ('Beauty', 'Y');
+
+-- -----------------------------------------------------
+-- insert products
+-- -----------------------------------------------------
+
+
+INSERT INTO product (title, name, description, image_url, active, units_stock,
+unit_price, category_id, created_at)
+VALUES ('DELL-LAPTOP-1000', 'DELL - Laptop', 'Processor: Intel Core i5-1235U 12th Generation (up to 4.40 GHz, 12MB 10 Cores)',
+'assets/images/products/laptops/dell-laptop-1000.png',1,100,19.99,1, NOW());
+
+INSERT INTO product (title, name, description, image_url, active, units_stock,
+unit_price, category_id, created_at)
+VALUES ('HP-LAPTOP-1001', 'HP - Laptop', 'Processor: Intel Core i5-1235U 12th Generation (up to 4.40 GHz, 12MB 10 Cores)',
+'assets/images/products/laptops/hp-laptop-1001.png',1,100,59.99,1, NOW());
+
+INSERT INTO product (title, name, description, image_url, active, units_stock,
+unit_price, category_id, created_at)
+VALUES ('ACER-LAPTOP-1002', 'ACER - Laptop', 'Acer Aspire Lite 12th Gen Intel Core i5-1235U Thin and Light Laptop ',
+'assets/images/products/laptops/acer-laptop-1002.png',1,100,49.99,1, NOW());
+
+INSERT INTO product (title, name, description, image_url, active, units_stock,
+unit_price, category_id, created_at)
+VALUES ('LENOVO-LAPTOP-1003', 'Lenovo ThinkPad E14', 'Lenovo ThinkPad E14 AMD Ryzen 5',
+'assets/images/products/laptops/lenovo-laptop-1003.png',1,100,45.00,1, NOW());
+
+---------------------------------------------------------------------------------------------------
+
+INSERT INTO product (title, name, description, image_url, active, units_stock,
+unit_price, category_id, created_at)
+VALUES ('Apple-IPhone-1000', 'Apple-Iphone', 'Apple iPhone 13 (128GB) - Green',
+'assets/images/products/mobiles/apple-mobile-1000.png',1,100,59,2, NOW());
+
+INSERT INTO product (title, name, description, image_url, active, units_stock,
+unit_price, category_id, created_at)
+VALUES ('RED-MI-1001', 'Redmi 13C', 'Redmi 13C (Stardust Black, 6GB RAM, 128GB Storage)',
+'assets/images/products/mobiles/redmi-mobile-1001.png',1,100,29,2, NOW());
+
+INSERT INTO product (title, name, description, image_url, active, units_stock,unit_price, category_id, created_at)
+VALUES ('SAMSUNG-Galaxy-1002', 'Samsung Mobile', 'SAMSUNG Galaxy F14 5G 6GB RAM 128GB STORAGE',
+'assets/images/products/mobiles/samsung-mobile-1002.png',1,100,39,2, NOW());
+
+INSERT INTO product (title, name, description, image_url, active, units_stock,unit_price, category_id, created_at)
+VALUES ('POCO C65', 'POCO C65', 'POCO C65 (Pastel Green 4GB RAM 128GB Storage)',
+'assets/images/products/mobiles/poco-mobile-1003.png',1,100,49,2, NOW());
+
+------------------------------------------------------------------------------------------------
+
+INSERT INTO product (title, name, description, image_url, active, units_stock,
+unit_price, category_id, created_at)
+VALUES ('Mens Cotton Shirt', 'Mens Cotton Shirt', 'Amazon Brand - Symbol Mens Cotton Shirt','assets/images/products/clothes/shirt-1000.png',1,100,5,3, NOW());
+
+------------------------------------------------------------------------------------------------
+

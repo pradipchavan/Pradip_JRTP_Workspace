@@ -1,0 +1,189 @@
+
+===========================
+Order API Development
+===========================
+
+=> We have to implement below functionalities in Order API
+
+1) POST : Create New Order with Razorpay integration
+
+2) PUT : Update Order based on Payment Status
+
+3) PUT : Cancel Order based on Order Tracking Number
+
+4) GET : Retrieve Orders based on customer email
+
+
+@@@ SpringBoot with Payment Gatway Integration Reference Video : https://www.youtube.com/watch?v=t574YTo7HEw
+
+-------------------------create order request json format -----------------------
+
+{
+  "customer": {
+    "name": "Ashok",
+    "email": "ashokitschool@gmail.com",
+    "phoneNo": "699696969"
+  },
+  "address": {
+    "houseNum": "11",
+    "street": "Ameerpet",
+    "city": "Hyd",
+    "state": "TG",
+    "zipCode": "343545"
+  },
+  "order": {
+    "email": "ashokitschool@gmail.com",
+    "totalPrice": 1000.00,
+    "totalQuantity": 2,
+    "deliveryDate" : "01-Oct-2025"
+  },
+  "orderItems": [
+    {
+      "quantity": 1,
+      "unitPrice": 500,
+      "imageUrl": "url-1",
+      "productName": "Apple Mobile Cover"
+    },
+     {
+      "quantity": 1,
+      "unitPrice": 500,
+      "imageUrl": "url-2",
+      "productName": "Samsung Mobile Cover"
+    }
+  ]
+}
+
+-------------------------create order response json format -----------------------
+
+{	
+	"razorpayOrderId" : "Jlad7f9adf",
+	"orderStatus" : "CREATED",
+	"orderTrackingNumber" : "asdf0799a7dfdf",
+   "paymentStatus" : "PENDING",
+}
+
+-------------------------Update order request json format -----------------------
+
+{	
+	"razorpayOrderId" : "Jlad7f9adf",
+	"orderStatus" : "CONFIRMED",
+	"orderTrackingNumber" : "asdf0799a7dfdf",
+	"razorpayPaymentId" : "P979lasdf",
+}
+
+-------------------------Update order response json format -----------------------
+
+{ 
+  "razorpayOrderId" : "Jlad7f9adf",
+  "paymentStatus" : "COMPLETED",
+  "orderStatus" : "CONFIRMED",
+  "orderTrackingNumber" : "asdf0799a7dfdf",
+  "razorpayPaymentId" : "P979lasdf",
+}
+
+-------------------------Cancel order response json format -----------------------
+
+{	
+	"razorpayOrderId" : "Jlad7f9adf",
+	"orderStatus" : "CANCELLED",
+  "paymentStatus" : "REFUND-IN-PROGRESS",
+	"orderTrackingNumber" : "asdf0799a7dfdf"
+}
+
+------------------------------- GET Orders Response in json format ----------------------
+
+[
+  {
+    "orderId": 1,
+    "orderTrackingNum": "ABC123",
+    "razorPayOrderId": "rp_order_001",
+    "email": "customer1@example.com",
+    "orderStatus": "DELIVERED",
+    "totalPrice": 299.99,
+    "totalQuantity": 3,
+    "razorPayPaymentId": "rp_pay_001",
+    "dateCreated": "2025-05-01",
+    "lastUpdated": "2025-05-02",
+    "deliveryDate": "2025-05-03",
+    "orderItems": [
+      {
+        "id": 101,
+        "productName": "Pizza Margherita",
+        "quantity": 2,
+        "unitPrice": 129.99
+      },
+      {
+        "id": 102,
+        "productName": "Garlic Bread",
+        "quantity": 1,
+        "unitPrice": 39.99
+      }
+    ]
+  },
+  {
+    "orderId": 2,
+    "orderTrackingNum": "XYZ789",
+    "razorPayOrderId": "rp_order_002",
+    "email": "customer2@example.com",
+    "orderStatus": "PENDING",
+    "totalPrice": 499.50,
+    "totalQuantity": 5,
+    "razorPayPaymentId": null,
+    "dateCreated": "2025-05-05",
+    "lastUpdated": "2025-05-05",
+    "deliveryDate": null,
+    "orderItems": [
+      {
+        "id": 103,
+        "productName": "Burger Combo",
+        "quantity": 3,
+        "unitPrice": 99.50
+      },
+      {
+        "id": 104,
+        "productName": "Soft Drink",
+        "quantity": 2,
+        "unitPrice": 50.00
+      }
+    ]
+  }
+]
+
+-------------------------------------------------------------------------------------------------
+
+====================
+Development Process
+====================
+
+
+1) Create Razorpay account and generate api keys in test mode and download them.
+
+2) Create spring boot application with below dependencies
+
+      - web starter
+      - jpa starter
+      - mysql driver
+      - mail starter
+      - actuator starter
+      - lombok
+      - devtools
+      - razaorpay java
+      - model-mapper
+
+3) Configure props in application.properties file
+
+     - data source props
+     - orm props
+     - smtp props
+     - razorpay keys      
+
+4) Create Entity classes and repo interfaces     
+
+5) Create DTO classes
+
+        - AddressDto
+        - CustomerDto
+        - OrderDto
+        - OrderItemDto
+        - PurchaseOrderRequestDto
+        - PurchaseOrderResponseDto

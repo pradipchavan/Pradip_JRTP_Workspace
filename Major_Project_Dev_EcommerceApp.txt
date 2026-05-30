@@ -1,0 +1,123 @@
+
+===========================
+Major Project Development
+============================
+
+Project Name : e-Commerce App
+
+Technology Stack : JAVA + SpringBoot + Microservices + MySQL DB + React + AWS Cloud + DevOps Tools
+
+Project Requirement : https://www.youtube.com/watch?v=IbOMX4OYjSM
+
+===============================
+Application Functionalities
+===============================
+
+1) Products & Categories
+
+2) Cart & Checkout
+
+3) Orders with Payment Gateway
+
+4) Customer 
+
+=================
+Database Design
+=================
+
+1) PRODUCT_CATEGORY
+
+		- category_id		PK
+		- category_name
+
+2) PRODUCT
+		
+		- product_id		PK
+		- name
+		- desc
+		- title
+		- unit_price
+		- image_url
+		- active
+		- units_stock
+		- date_created
+		- last_updated
+		
+		- category_id		FK	
+
+3) CUSTOMER
+
+		- customer_id  
+		- name
+		- email (UNIQUE)
+		- pwd
+		- phno
+		- pwd_updated
+
+4) SHIPPING_ADDR
+
+		- addr_id		(Primary Key)
+		- house_num
+		- street
+		- city
+		- state
+		- zipcode
+		- country
+
+		- customer_id (Foregn key mapping)
+
+5) ORDER
+
+		- order_id   Primary Key
+		- order_tracking_num
+		- total_quantity
+		- total_price
+		- order_status
+		- created_date
+		- updated_date
+		- delivery_date
+		- payment_status
+		- razorpay_order_id
+		- razorpay_payment_id
+
+		- customer_id     (Foregn key mapping)
+		- addr_id         (Foregn key mapping)
+
+6) ORDER_ITEMS
+
+		- order_item_id   PK
+		- image_url
+		- unit_price
+		- quantity
+
+		- product_id  FK
+		- order_id   FK
+
+=====================
+Backend Microservices
+=====================
+
+1) PRODUCT API
+
+2) CUSTOMER API
+
+3) ORDER API
+
+4) NOTIFICATIONS API
+
+5) ADMIN API
+
+
+=================
+Product API
+================
+
+=> We have to implement below functionalities in Product API
+
+1) GET product_categories for side menu bar display
+
+2) GET products based on category id
+
+3) GET products based on product name (search functionality)
+
+4) GET product by product id (for product master view)
