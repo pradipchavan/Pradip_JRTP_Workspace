@@ -1,0 +1,39 @@
+
+===================
+Notifications API
+===================
+
+=> As part of Notifications API, we need to identify the orders having delivery date as today and we need to send delivery notifications to customers through email and through Whatsapp msg (WATI) with OTP.
+
+Note: We need to send delivery notifications every day morning @7:00 AM.
+
+Note: WATI is whatsapp business api. 7 days free trial will be avilable.
+
+@@@ Spring Boot with WATI Integration Reference Video : https://www.youtube.com/watch?v=o_pB8Nn9swI
+
+Ex :
+
+	@Schedule("* 7 * * * *")
+	public void sendDeliveryNotification(){
+
+		List<Order> ordersList = service.findOrdersByDeliveryDate(LocalDate.now());
+
+		for(Order order : ordersList){
+			Customer c = customerService.getCustomerByEmail(order.getEmail());
+			String otp = generateOTP();
+			sendEmailNotification(c, otp);
+			sendWhatsAppNotification(c, otp);
+		}
+	}
+
+	public void sendEmailNotification(Customer c, String otp){
+		// logic
+	}
+
+	public void sendWhatsAppNotification(Customer c, String otp){
+		// logic
+	}
+
+	generateOTP(){
+		// logic
+	}

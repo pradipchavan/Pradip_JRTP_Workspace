@@ -1,0 +1,18 @@
+
+===================
+Admin API
+===================
+
+=> We need to implement below functionalities as part of ADMIN API
+
+1) Product Category Managment (Create / Update / Retrieve / Delete)
+
+2) Products Managment (Create / Update / Retrieve / Delete)
+
+3) Reports Generation in Excel format with below filters
+
+		- From Date
+		- To Date
+		- Order Status
+
+Note: We need to implement soft delete for Both categories and products.

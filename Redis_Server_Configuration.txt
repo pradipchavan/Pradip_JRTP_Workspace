@@ -1,0 +1,13 @@
+
+Redis Server
+--------------
+
+endpoint url: gold-quiet-cap-97975.db.redis.io
+
+Redis Port : 10664
+
+Username: "default"
+
+password: sykHKKcz8jIoybUP21lQKZzpkw0YySrD
+
+database-MQA56GDR
